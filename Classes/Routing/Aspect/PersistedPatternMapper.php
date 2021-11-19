@@ -173,6 +173,9 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	 */
 	protected function handleRouteValues($value): ?string {
 
+		// Liquid Light hack
+		$value = (string)$value;
+
 		foreach ($this->settings['routeFieldHandles'] as $handle) {
 			switch ($handle) {
 				case 'trim':
