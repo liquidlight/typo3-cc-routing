@@ -1,0 +1,5 @@
+# cat=basic/enable; type=int; label=expire days: days until pathsegments will expire
+expire =
+
+# cat=basic/enable; type=int; label=refresh days: refresh pathsegments after these days
+refresh =

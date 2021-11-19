@@ -1,0 +1,17 @@
+routeEnhancers:
+  CcExamplePlugin:
+    type: Extbase
+    extension: CcExample
+    plugin: Fe
+    routes:
+      - { routePath: '{title}',_controller: 'View::show',_arguments: {'title': 'item'} }
+    defaultController: 'View::show'
+    aspects:
+      title:
+        type: CcPersistedPatternMapper
+        tableName: 'tx_ccexample_item'
+        routeFieldResult: '{title}-{location}'
+        routeFieldHandles: 'asciiTranslit,toLowerCase,specialCharsRemove,trim,filter'
+        filter: '/^(.{0,40})/'
+#        specialCharsRemoveSearch: '/[^a-zA-Z0-9_]+/'
+#        specialCharsRemoveReplace: '-'

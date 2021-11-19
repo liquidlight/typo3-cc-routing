@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-05-02T05:14:06Z" product-name="cc_routing">
+		<header/>
+		<body>
+			<trans-unit id="data_uid.description">
+				<source>uid of dataset</source>
+			</trans-unit>
+			<trans-unit id="pathsegment.description">
+				<source>pathsegment</source>
+			</trans-unit>
+			<trans-unit id="tablename.description">
+				<source>tablename</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

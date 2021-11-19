@@ -1,0 +1,13 @@
+
+config.tx_extbase {
+  persistence {
+    classes {
+
+      CoelnConcept\CcRouting\Domain\Model\Pathsegment {
+        mapping {
+          tableName = tx_ccrouting_pathsegment
+        }
+      }
+    }
+  }
+}

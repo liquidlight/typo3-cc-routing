@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-05-02T05:14:06Z" product-name="cc_routing">
+		<header/>
+		<body>
+			<trans-unit id="tx_ccrouting_pathsegment">
+				<source>Pathsegment</source>
+			</trans-unit>
+			<trans-unit id="tx_ccrouting_pathsegment.data_uid">
+				<source>Data Uid</source>
+			</trans-unit>
+			<trans-unit id="tx_ccrouting_pathsegment.pathsegment">
+				<source>Pathsegment</source>
+			</trans-unit>
+			<trans-unit id="tx_ccrouting_pathsegment.tablename">
+				<source>Tablename</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
