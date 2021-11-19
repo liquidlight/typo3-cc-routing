@@ -1,5 +1,6 @@
 <?php
-declare(strict_types = 1);
+
+declare(strict_types=1);
 
 namespace CoelnConcept\CcRouting\Routing\Aspect;
 
@@ -46,8 +47,8 @@ use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
  *
  * @internal might change its options in the future, be aware that there might be modifications.
  */
-class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPatternMapper {
-
+class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPatternMapper
+{
 	use SiteLanguageAwareTrait;
 
 	protected const PATHSEGMENT_TABLENAME = 'tx_ccrouting_pathsegment';
@@ -60,8 +61,8 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	/**
 	 * {@inheritdoc}
 	 */
-	public function __construct(array $settings) {
-
+	public function __construct(array $settings)
+	{
 		$this->time = time();
 
 		$tableName = $settings['tableName'] ?? null;
@@ -84,7 +85,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 		$this->routeFieldResultNames = $routeFieldResultNames['fieldName'] ?? [];
 		$this->languageFieldName = $GLOBALS['TCA'][$this->tableName]['ctrl']['languageField'] ?? null;
 		$this->languageParentFieldName = $GLOBALS['TCA'][$this->tableName]['ctrl']['transOrigPointerField'] ?? null;
-		if (version_compare(\TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version(),'10.4.0','>=')) {
+		if (version_compare(\TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version(), '10.4.0', '>=')) {
 			$this->slugUniqueInSite = $this->hasSlugUniqueInSite($this->tableName, ...$this->routeFieldResultNames);
 		}
 
@@ -93,7 +94,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 		$this->settings['specialCharsRemoveReplace'] = $this->settings['specialCharsRemoveReplace'] ?? '-';
 		$this->settings['filter'] = $this->settings['filter'] ?? '/(.*)/';
 
-		$extConf = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('cc_routing')?:[];
+		$extConf = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('cc_routing') ?: [];
 
 		$this->settings = array_merge($extConf, $this->settings);
 	}
@@ -103,15 +104,15 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	 * @param string $value
 	 * @param ?int $uid
 	 */
-	public function resolve(string $value, ?int $uid=null): ?string {
+	public function resolve(string $value, ?int $uid=null): ?string
+	{
 		$values = [
 			'pathsegment' => $value,
 			'tablename' => $this->tableName,
 		];
-		if (version_compare(\TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version(),'10.4.0','>=')) {
+		if (version_compare(\TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version(), '10.4.0', '>=')) {
 			$result = $this->findByRouteFieldValues($values);
-		}
-		else {
+		} else {
 			$result = $this->getPersistenceDelegate()->resolve($values);
 		}
 		if (isset($result['data_uid'])) {
@@ -126,7 +127,8 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function createRouteResult(?array $result): ?string {
+	protected function createRouteResult(?array $result): ?string
+	{
 		if ($result === null) {
 			return $result;
 		}
@@ -152,7 +154,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 		$pathsegment_base = $pathsegment;
 		$i = 0;
 		do {
-			$pathsegment = $pathsegment_base.($i?'-'.$i:'');
+			$pathsegment = $pathsegment_base . ($i ? '-' . $i : '');
 			$data_uid = intval($this->resolve($pathsegment, $uid));
 
 			if (!$data_uid) {
@@ -171,7 +173,8 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	 * @return string|null
 	 * @throws \InvalidArgumentException
 	 */
-	protected function handleRouteValues($value): ?string {
+	protected function handleRouteValues($value): ?string
+	{
 
 		// Liquid Light hack
 		$value = (string)$value;
@@ -180,7 +183,9 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 			switch ($handle) {
 				case 'trim':
 					$value = trim($value);
-					if ($this->settings['specialCharsRemoveReplace']) $value = trim($value, $this->settings['specialCharsRemoveReplace']);
+					if ($this->settings['specialCharsRemoveReplace']) {
+						$value = trim($value, $this->settings['specialCharsRemoveReplace']);
+					}
 				break;
 				case 'toLowerCase':
 					$value = strtolower($value);
@@ -207,14 +212,15 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	 * @param string $pathsegment
 	 * @return int
 	 */
-	protected function insert(int $uid, string $pathsegment): int {
+	protected function insert(int $uid, string $pathsegment): int
+	{
 		$connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable(static::PATHSEGMENT_TABLENAME);
 		$connection->insert(
 			static::PATHSEGMENT_TABLENAME,
 			[
 				'tstamp' => $this->time,
 				'crdate' => $this->time,
-				'endtime' => $this->settings['expire']?strtotime('+'.$this->settings['expire'].' days', $this->time):0,
+				'endtime' => $this->settings['expire'] ? strtotime('+' . $this->settings['expire'] . ' days', $this->time) : 0,
 				'data_uid' => $uid,
 				'pathsegment' => $pathsegment,
 				'tablename' => $this->tableName,
@@ -227,16 +233,19 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	 * @param ?array $result
 	 * @return
 	 */
-	protected function refresh(?array $result) {
-		if (!$result) return;
+	protected function refresh(?array $result)
+	{
+		if (!$result) {
+			return;
+		}
 
-		if ((!$this->settings['expire'] && $result['endtime']) || ($this->settings['expire'] && $result['endtime'] < strtotime('+'.max(intval($this->settings['expire'])-intval($this->settings['refresh']),0).' days', $this->time))) {
+		if ((!$this->settings['expire'] && $result['endtime']) || ($this->settings['expire'] && $result['endtime'] < strtotime('+' . max(intval($this->settings['expire'])-intval($this->settings['refresh']), 0) . ' days', $this->time))) {
 			$connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable(static::PATHSEGMENT_TABLENAME);
 			$connection->update(
 				static::PATHSEGMENT_TABLENAME,
 				[
 					'tstamp' => $this->time,
-					'endtime' => $this->settings['expire']?strtotime('+'.$this->settings['expire'].' days', $this->time):0,
+					'endtime' => $this->settings['expire'] ? strtotime('+' . $this->settings['expire'] . ' days', $this->time) : 0,
 				],
 				['uid'=>$result['uid']]
 			);
@@ -246,7 +255,8 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function findByIdentifier(string $value): ?array {
+	protected function findByIdentifier(string $value): ?array
+	{
 		$queryBuilder = $this->createQueryBuilder();
 		$queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
 		$result = $queryBuilder
@@ -256,14 +266,16 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 				$queryBuilder->createNamedParameter($value, \PDO::PARAM_INT)
 			))
 			->execute()
-			->fetch();
+			->fetch()
+		;
 		return $result !== false ? $result : null;
 	}
 
 	/**
 	 * {@inheritdoc}
 	 */
-	protected function findByRouteFieldValues(array $values): ?array {
+	protected function findByRouteFieldValues(array $values): ?array
+	{
 		$queryBuilder = $this->createQueryBuilder()->resetQueryPart('from')->from(static::PATHSEGMENT_TABLENAME);
 		$queryBuilder->getRestrictions()->removeByType(EndTimeRestriction::class);
 
@@ -292,7 +304,8 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	 * @return \TYPO3\CMS\Core\Routing\Aspect\PersistenceDelegate
 	 * @deprecated since v1.2, will be removed in v2.0
 	 */
-	protected function getPersistenceDelegate(): \TYPO3\CMS\Core\Routing\Aspect\PersistenceDelegate {
+	protected function getPersistenceDelegate(): \TYPO3\CMS\Core\Routing\Aspect\PersistenceDelegate
+	{
 		if ($this->persistenceDelegate !== null) {
 			return $this->persistenceDelegate;
 		}
@@ -321,5 +334,4 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 			$generateModifier
 		);
 	}
-
 }

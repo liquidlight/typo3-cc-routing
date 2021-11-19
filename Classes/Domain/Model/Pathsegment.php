@@ -1,6 +1,6 @@
 <?php
-namespace CoelnConcept\CcRouting\Domain\Model;
 
+namespace CoelnConcept\CcRouting\Domain\Model;
 
 /***
  *
@@ -18,91 +18,90 @@ namespace CoelnConcept\CcRouting\Domain\Model;
  */
 class Pathsegment extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
+	/**
+	 * uid of dataset
+	 *
+	 * @var int
+	 * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+	 */
+	protected $dataUid = 0;
 
-    /**
-     * uid of dataset
-     * 
-     * @var int
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $dataUid = 0;
+	/**
+	 * pathsegment
+	 *
+	 * @var string
+	 * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+	 */
+	protected $pathsegment = '';
 
-    /**
-     * pathsegment
-     * 
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $pathsegment = '';
+	/**
+	 * tablename
+	 *
+	 * @var string
+	 * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+	 */
+	protected $tablename = '';
 
-    /**
-     * tablename
-     * 
-     * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
-     */
-    protected $tablename = '';
+	/**
+	 * Returns the dataUid
+	 *
+	 * @return int $dataUid
+	 */
+	public function getDataUid()
+	{
+		return $this->dataUid;
+	}
 
-    /**
-     * Returns the dataUid
-     * 
-     * @return int $dataUid
-     */
-    public function getDataUid()
-    {
-        return $this->dataUid;
-    }
+	/**
+	 * Sets the dataUid
+	 *
+	 * @param int $dataUid
+	 * @return void
+	 */
+	public function setDataUid($dataUid)
+	{
+		$this->dataUid = $dataUid;
+	}
 
-    /**
-     * Sets the dataUid
-     * 
-     * @param int $dataUid
-     * @return void
-     */
-    public function setDataUid($dataUid)
-    {
-        $this->dataUid = $dataUid;
-    }
+	/**
+	 * Returns the pathsegment
+	 *
+	 * @return string $pathsegment
+	 */
+	public function getPathsegment()
+	{
+		return $this->pathsegment;
+	}
 
-    /**
-     * Returns the pathsegment
-     * 
-     * @return string $pathsegment
-     */
-    public function getPathsegment()
-    {
-        return $this->pathsegment;
-    }
+	/**
+	 * Sets the pathsegment
+	 *
+	 * @param string $pathsegment
+	 * @return void
+	 */
+	public function setPathsegment($pathsegment)
+	{
+		$this->pathsegment = $pathsegment;
+	}
 
-    /**
-     * Sets the pathsegment
-     * 
-     * @param string $pathsegment
-     * @return void
-     */
-    public function setPathsegment($pathsegment)
-    {
-        $this->pathsegment = $pathsegment;
-    }
+	/**
+	 * Returns the tablename
+	 *
+	 * @return string $tablename
+	 */
+	public function getTablename()
+	{
+		return $this->tablename;
+	}
 
-    /**
-     * Returns the tablename
-     * 
-     * @return string $tablename
-     */
-    public function getTablename()
-    {
-        return $this->tablename;
-    }
-
-    /**
-     * Sets the tablename
-     * 
-     * @param string $tablename
-     * @return void
-     */
-    public function setTablename($tablename)
-    {
-        $this->tablename = $tablename;
-    }
+	/**
+	 * Sets the tablename
+	 *
+	 * @param string $tablename
+	 * @return void
+	 */
+	public function setTablename($tablename)
+	{
+		$this->tablename = $tablename;
+	}
 }

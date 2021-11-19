@@ -1,4 +1,5 @@
 <?php
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:cc_routing/Resources/Private/Language/locallang_db.xlf:tx_ccrouting_pathsegment',
@@ -14,7 +15,7 @@ return [
             'endtime' => 'endtime',
         ],
         'searchFields' => 'pathsegment,tablename',
-        'iconfile' => 'EXT:cc_routing/Resources/Public/Icons/tx_ccrouting_pathsegment.png'
+        'iconfile' => 'EXT:cc_routing/Resources/Public/Icons/tx_ccrouting_pathsegment.png',
     ],
     'interface' => [
         'showRecordFieldList' => 'data_uid, pathsegment, tablename',
@@ -32,8 +33,8 @@ return [
                 'eval' => 'datetime,int',
                 'default' => 0,
                 'behaviour' => [
-                    'allowLanguageSynchronization' => true
-                ]
+                    'allowLanguageSynchronization' => true,
+                ],
             ],
         ],
         'endtime' => [
@@ -45,8 +46,8 @@ return [
                 'eval' => 'datetime,int',
                 'default' => 0,
                 'behaviour' => [
-                    'allowLanguageSynchronization' => true
-                ]
+                    'allowLanguageSynchronization' => true,
+                ],
             ],
         ],
 
@@ -56,8 +57,8 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 10,
-                'eval' => 'int,required'
-            ]
+                'eval' => 'int,required',
+            ],
         ],
         'pathsegment' => [
             'exclude' => false,
@@ -65,7 +66,7 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim,required',
             ],
         ],
         'tablename' => [
@@ -74,9 +75,9 @@ return [
             'config' => [
                 'type' => 'input',
                 'size' => 30,
-                'eval' => 'trim,required'
+                'eval' => 'trim,required',
             ],
         ],
-    
+
     ],
 ];
