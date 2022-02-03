@@ -138,7 +138,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 				return null;
 			}
 			$routeFieldName = '{' . $fieldName . '}';
-			$substitutes[$routeFieldName] = $this->handleRouteValues((string)$result[$fieldName]);
+			$substitutes[$routeFieldName] = $this->handleRouteValues($result[$fieldName]);
 		}
 		$pathsegment = str_replace(
 			array_keys($substitutes),
@@ -175,9 +175,6 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	 */
 	protected function handleRouteValues($value): ?string
 	{
-
-		// Liquid Light hack
-		$value = (string)$value;
 
 		foreach ($this->settings['routeFieldHandles'] as $handle) {
 			switch ($handle) {
