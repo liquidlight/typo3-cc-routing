@@ -175,7 +175,6 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	 */
 	protected function handleRouteValues(string $value): ?string
 	{
-
 		foreach ($this->settings['routeFieldHandles'] as $handle) {
 			switch ($handle) {
 				case 'trim':
