@@ -1,9 +1,0 @@
-See https://www.coelnconcept.de
-
-1.2.1 	2020-07-31 tda  <info@coelnconcept.de>
-
-	* Bugfix: Removed wrong language constraint in combination with TYPO3 10.4.
-
-1.2.0 	2020-06-26 tda  <info@coelnconcept.de>
-
-	* Initial release.
