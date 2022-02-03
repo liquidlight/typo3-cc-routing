@@ -138,7 +138,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 				return null;
 			}
 			$routeFieldName = '{' . $fieldName . '}';
-			$substitutes[$routeFieldName] = $this->handleRouteValues($result[$fieldName]);
+			$substitutes[$routeFieldName] = $this->handleRouteValues((string)$result[$fieldName]);
 		}
 		$pathsegment = str_replace(
 			array_keys($substitutes),
@@ -173,7 +173,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	 * @return string|null
 	 * @throws \InvalidArgumentException
 	 */
-	protected function handleRouteValues($value): ?string
+	protected function handleRouteValues(string $value): ?string
 	{
 
 		foreach ($this->settings['routeFieldHandles'] as $handle) {
