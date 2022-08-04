@@ -1,3 +1,15 @@
+# 1.3.1
+
+**4th August 2022**
+
+#### Backend
+
+- Update code author in `ext_emconf.php`
+
+#### Chore
+
+- Lint PHP
+
 # 1.3.0
 
 **4th August 2022**
