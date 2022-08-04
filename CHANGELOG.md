@@ -1,3 +1,20 @@
+# 1.3.0
+
+**4th August 2022**
+
+#### Dependencies
+
+- Add support for TYPO3 v11 LTS
+
+#### Bug
+
+- Set type declaration for `handleRouteValues` and typecast input
+
+#### Chore
+
+- Lint PHP
+- Bring extension up to conventions
+
 # 1.2.3
 
 **3rd February 2022**
