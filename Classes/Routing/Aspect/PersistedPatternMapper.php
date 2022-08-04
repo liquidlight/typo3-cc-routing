@@ -182,21 +182,21 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 					if ($this->settings['specialCharsRemoveReplace']) {
 						$value = trim($value, $this->settings['specialCharsRemoveReplace']);
 					}
-				break;
+					break;
 				case 'toLowerCase':
 					$value = strtolower($value);
-				break;
+					break;
 				case 'asciiTranslit':
 					$value = iconv('UTF-8', 'ASCII//TRANSLIT', $value);
-				break;
+					break;
 				case 'specialCharsRemove':
 					$value = preg_replace($this->settings['specialCharsRemoveSearch'], $this->settings['specialCharsRemoveReplace'], $value);
-				break;
+					break;
 				case 'filter':
 					$matches = [];
 					preg_match($this->settings['filter'], $value, $matches);
 					$value = strval($matches[0]);
-				break;
+					break;
 			}
 		}
 
