@@ -72,7 +72,7 @@ routeFieldHandles
          string
    Description
          Comma separated list to convert the field data.
-         Possible values are: asciiTranslit, toLowerCase, specialCharsRemove, trim, filter
+         Possible values are: asciiTranslit, toLowerCase, specialCharsRemove, trim, filter, md5
    Default
          N/A
 
@@ -142,7 +142,7 @@ Example
            type: CcPersistedPatternMapper
            tableName: 'tx_ccexample_item'
            routeFieldResult: '{title}-{location}'
-           routeFieldHandles: 'asciiTranslit,toLowerCase,specialCharsRemove,trim,filter'
+           routeFieldHandles: 'asciiTranslit,toLowerCase,specialCharsRemove,trim,filter,md5'
            filter: '/^(.{0,40})/'
    #        specialCharsRemoveSearch: '/[^a-zA-Z0-9_]+/'
    #        specialCharsRemoveReplace: '-'
@@ -181,4 +181,3 @@ refresh
          Refresh pathsegments after these days. This value should be lower than the expire days.
    Default
          N/A
-

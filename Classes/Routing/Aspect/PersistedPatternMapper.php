@@ -40,7 +40,7 @@ use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
  *           type: CcPersistedPatternMapper
  *           tableName: 'tx_ccexample_item'
  *           routeFieldResult: '{title}-{location}'
- *           routeFieldHandles: 'asciiTranslit,toLowerCase,specialCharsRemove,trim,filter'
+ *           routeFieldHandles: 'asciiTranslit,toLowerCase,specialCharsRemove,trim,filter,md5'
  *           filter: '/^(.{0,40})/'
  *   #        specialCharsRemoveSearch: '/[^a-zA-Z0-9_]+/'
  *   #        specialCharsRemoveReplace: '-'
@@ -196,6 +196,9 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 					$matches = [];
 					preg_match($this->settings['filter'], $value, $matches);
 					$value = strval($matches[0]);
+					break;
+				case 'md5':
+					$value = md5($value);
 					break;
 			}
 		}
