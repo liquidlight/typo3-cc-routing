@@ -104,7 +104,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	 * @param string $value
 	 * @param ?int $uid
 	 */
-	public function resolve(string $value, ?int $uid=null): ?string
+	public function resolve(string $value, ?int $uid = null): ?string
 	{
 		$values = [
 			'pathsegment' => $value,
@@ -235,7 +235,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 			return;
 		}
 
-		if ((!$this->settings['expire'] && $result['endtime']) || ($this->settings['expire'] && $result['endtime'] < strtotime('+' . max(intval($this->settings['expire'])-intval($this->settings['refresh']), 0) . ' days', $this->time))) {
+		if ((!$this->settings['expire'] && $result['endtime']) || ($this->settings['expire'] && $result['endtime'] < strtotime('+' . max(intval($this->settings['expire']) - intval($this->settings['refresh']), 0) . ' days', $this->time))) {
 			$connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable(static::PATHSEGMENT_TABLENAME);
 			$connection->update(
 				static::PATHSEGMENT_TABLENAME,
@@ -243,7 +243,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 					'tstamp' => $this->time,
 					'endtime' => $this->settings['expire'] ? strtotime('+' . $this->settings['expire'] . ' days', $this->time) : 0,
 				],
-				['uid'=>$result['uid']]
+				['uid' => $result['uid']]
 			);
 		}
 	}

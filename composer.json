@@ -1,13 +1,12 @@
 {
     "name": "liquidlight/cc-routing",
-    "type": "typo3-cms-extension",
     "description": "Extended routing with database persistence",
     "license": "GPL-2.0+",
-    "homepage": "https://github.com/liquidlight/typo3-cc-routing",
-    "readme": "./README.md",
+    "type": "typo3-cms-extension",
     "keywords": [
         "TYPO3 CMS"
     ],
+    "readme": "./README.md",
     "authors": [
         {
             "name": "Liquid Light",
@@ -22,6 +21,7 @@
             "name": "Coeln Concept GmbH"
         }
     ],
+    "homepage": "https://github.com/liquidlight/typo3-cc-routing",
     "support": {
         "issues": "https://github.com/liquidlight/typo3-cc-routing/issues",
         "source": "https://github.com/liquidlight/typo3-cc-routing"
@@ -29,13 +29,13 @@
     "require": {
         "typo3/cms-core": "^9.5 || ^10.4 || ^11.5"
     },
+    "replace": {
+        "typo3-ter/cc-routing": "self.version"
+    },
     "autoload": {
         "psr-4": {
             "CoelnConcept\\CcRouting\\": "Classes"
         }
-    },
-    "replace": {
-        "typo3-ter/cc-routing": "self.version"
     },
     "extra": {
         "typo3/cms": {
