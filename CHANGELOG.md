@@ -1,3 +1,11 @@
+# 1.4.0
+
+**2nd January 2024**
+
+#### Feature
+
+- Add ability to `md5()` hash the URL (#4)
+
 # 1.3.1
 
 **4th August 2022**
