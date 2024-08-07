@@ -17,9 +17,6 @@ return [
 		'searchFields' => 'pathsegment,tablename',
 		'iconfile' => 'EXT:cc_routing/Resources/Public/Icons/tx_ccrouting_pathsegment.png',
 	],
-	'interface' => [
-		'showRecordFieldList' => 'data_uid, pathsegment, tablename',
-	],
 	'types' => [
 		'1' => ['showitem' => 'data_uid, pathsegment, tablename, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
 	],

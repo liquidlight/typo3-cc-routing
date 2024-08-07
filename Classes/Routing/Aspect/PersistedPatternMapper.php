@@ -14,7 +14,8 @@ namespace CoelnConcept\CcRouting\Routing\Aspect;
  *  (c) 2020
  *
  ***/
-
+use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Routing\Aspect\PersistenceDelegate;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\EndTimeRestriction;
@@ -85,16 +86,14 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 		$this->routeFieldResultNames = $routeFieldResultNames['fieldName'] ?? [];
 		$this->languageFieldName = $GLOBALS['TCA'][$this->tableName]['ctrl']['languageField'] ?? null;
 		$this->languageParentFieldName = $GLOBALS['TCA'][$this->tableName]['ctrl']['transOrigPointerField'] ?? null;
-		if (version_compare(\TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version(), '10.4.0', '>=')) {
-			$this->slugUniqueInSite = $this->hasSlugUniqueInSite($this->tableName, ...$this->routeFieldResultNames);
-		}
+		$this->slugUniqueInSite = $this->hasSlugUniqueInSite($this->tableName, ...$this->routeFieldResultNames);
 
 		$this->settings['routeFieldHandles'] = GeneralUtility::trimExplode(',', $this->settings['routeFieldHandles'], true);
 		$this->settings['specialCharsRemoveSearch'] = $this->settings['specialCharsRemoveSearch'] ?? '/[^a-zA-Z0-9_]+/';
 		$this->settings['specialCharsRemoveReplace'] = $this->settings['specialCharsRemoveReplace'] ?? '-';
 		$this->settings['filter'] = $this->settings['filter'] ?? '/(.*)/';
 
-		$extConf = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Configuration\ExtensionConfiguration::class)->get('cc_routing') ?: [];
+		$extConf = GeneralUtility::makeInstance(ExtensionConfiguration::class)->get('cc_routing') ?: [];
 
 		$this->settings = array_merge($extConf, $this->settings);
 	}
@@ -110,11 +109,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 			'pathsegment' => $value,
 			'tablename' => $this->tableName,
 		];
-		if (version_compare(\TYPO3\CMS\Core\Utility\VersionNumberUtility::getNumericTypo3Version(), '10.4.0', '>=')) {
-			$result = $this->findByRouteFieldValues($values);
-		} else {
-			$result = $this->getPersistenceDelegate()->resolve($values);
-		}
+		$result = $this->findByRouteFieldValues($values);
 		if (isset($result['data_uid'])) {
 			if ($uid == 0 || $uid == $result['data_uid']) {
 				$this->refresh($result);
@@ -303,7 +298,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	 * @return \TYPO3\CMS\Core\Routing\Aspect\PersistenceDelegate
 	 * @deprecated since v1.2, will be removed in v2.0
 	 */
-	protected function getPersistenceDelegate(): \TYPO3\CMS\Core\Routing\Aspect\PersistenceDelegate
+	protected function getPersistenceDelegate(): PersistenceDelegate
 	{
 		if ($this->persistenceDelegate !== null) {
 			return $this->persistenceDelegate;
@@ -327,7 +322,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 			);
 		};
 
-		return $this->persistenceDelegate = new \TYPO3\CMS\Core\Routing\Aspect\PersistenceDelegate(
+		return $this->persistenceDelegate = new PersistenceDelegate(
 			$queryBuilder,
 			$resolveModifier,
 			$generateModifier

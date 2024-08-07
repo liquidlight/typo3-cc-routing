@@ -2,8 +2,10 @@
 
 declare(strict_types=1);
 
+use CoelnConcept\CcRouting\Domain\Model\Pathsegment;
+
 return [
-	\CoelnConcept\CcRouting\Domain\Model\Pathsegment::class => [
+	Pathsegment::class => [
 		'tableName' => 'tx_ccrouting_pathsegment',
 	],
 ];
