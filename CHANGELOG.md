@@ -1,3 +1,11 @@
+# 2.0.1
+
+**7th August 2024**
+
+#### Fix
+
+- Re-instate the `ext_emconf.php` for TER
+
 # 2.0.0
 
 **7th August 2024**
