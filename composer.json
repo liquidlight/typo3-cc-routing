@@ -3,7 +3,7 @@
     "description": "Extended routing with database persistence",
     "license": "GPL-2.0+",
     "type": "typo3-cms-extension",
-    "version": "1.4.0",
+    "version": "2.0.0",
     "keywords": [
         "TYPO3 CMS"
     ],

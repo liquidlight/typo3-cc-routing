@@ -1,3 +1,16 @@
+# 2.0.0
+
+**7th August 2024**
+
+#### Dependencies
+
+- Drop TYPO3 9.5 and TYPO3 10.4 support
+- Add TYPO3 12.4 support
+
+#### Chores
+
+- Run code through Rector & linting
+
 # 1.4.0
 
 **2nd January 2024**
