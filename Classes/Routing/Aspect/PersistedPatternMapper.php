@@ -15,11 +15,10 @@ namespace CoelnConcept\CcRouting\Routing\Aspect;
  *
  ***/
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
+use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\EndTimeRestriction;
-use TYPO3\CMS\Core\Routing\Aspect\PersistenceDelegate;
 use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -212,7 +211,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 				'tablename' => $this->tableName,
 			]
 		);
-		return intval($connection->lastInsertId(static::PATHSEGMENT_TABLENAME));
+		return intval($connection->lastInsertId());
 	}
 
 	protected function refresh(?array $result)
@@ -245,10 +244,10 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 			->select('*')
 			->where($queryBuilder->expr()->eq(
 				'uid',
-				$queryBuilder->createNamedParameter($value, \PDO::PARAM_INT)
+				$queryBuilder->createNamedParameter($value, Connection::PARAM_INT)
 			))
-			->execute()
-			->fetch()
+			->executeQuery()
+			->fetchAssociative()
 		;
 		return $result !== false ? $result : null;
 	}
@@ -265,7 +264,7 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 		foreach ($values as $fieldName => $fieldValue) {
 			$constraints[] = $queryBuilder->expr()->eq(
 				$fieldName,
-				$queryBuilder->createNamedParameter($fieldValue, \PDO::PARAM_STR)
+				$queryBuilder->createNamedParameter($fieldValue, Connection::PARAM_STR)
 			);
 		}
 
@@ -275,44 +274,10 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 			->addOrderBy('endtime', '=0 DESC')
 			->addOrderBy('endtime', 'DESC')
 			->setMaxResults(1)
-			->execute()
-			->fetch()
+			->executeQuery()
+			->fetchAssociative()
 		;
 		// return first result record
 		return $result ?: null;
-	}
-
-	/**
-	 * @deprecated since v1.2, will be removed in v2.0
-	 */
-	protected function getPersistenceDelegate(): PersistenceDelegate
-	{
-		if ($this->persistenceDelegate !== null) {
-			return $this->persistenceDelegate;
-		}
-		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
-			->getQueryBuilderForTable(static::PATHSEGMENT_TABLENAME)
-			->from($this->tableName)
-		;
-
-		$resolveModifier = function (QueryBuilder $queryBuilder, array $values) {
-			$queryBuilder->getRestrictions()->removeByType(EndTimeRestriction::class);
-
-			return $queryBuilder->resetQueryPart('from')->from(static::PATHSEGMENT_TABLENAME)->select('*')->where(
-				...$this->createFieldConstraints($queryBuilder, $values, true)
-			)->addOrderBy('endtime', '=0 DESC')->addOrderBy('endtime', 'DESC')->setMaxResults(1);
-		};
-		$generateModifier = function (QueryBuilder $queryBuilder, array $values) {
-			$queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
-			return $queryBuilder->resetQueryPart('from')->from($this->tableName)->select('*')->where(
-				...$this->createFieldConstraints($queryBuilder, $values)
-			);
-		};
-
-		return $this->persistenceDelegate = new PersistenceDelegate(
-			$queryBuilder,
-			$resolveModifier,
-			$generateModifier
-		);
 	}
 }
