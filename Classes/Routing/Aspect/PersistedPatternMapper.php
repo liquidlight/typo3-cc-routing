@@ -15,13 +15,13 @@ namespace CoelnConcept\CcRouting\Routing\Aspect;
  *
  ***/
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
-use TYPO3\CMS\Core\Routing\Aspect\PersistenceDelegate;
 use TYPO3\CMS\Core\Database\ConnectionPool;
+use TYPO3\CMS\Core\Database\Query\QueryBuilder;
 use TYPO3\CMS\Core\Database\Query\Restriction\DeletedRestriction;
 use TYPO3\CMS\Core\Database\Query\Restriction\EndTimeRestriction;
-use TYPO3\CMS\Core\Database\Query\QueryBuilder;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Routing\Aspect\PersistenceDelegate;
 use TYPO3\CMS\Core\Site\SiteLanguageAwareTrait;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Very useful for building an a path segment from a combined value of the database.
@@ -100,8 +100,6 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 
 	/**
 	 * {@inheritdoc}
-	 * @param string $value
-	 * @param ?int $uid
 	 */
 	public function resolve(string $value, ?int $uid = null): ?string
 	{
@@ -165,7 +163,6 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 
 	/**
 	 * @param string|null $value
-	 * @return string|null
 	 * @throws \InvalidArgumentException
 	 */
 	protected function handleRouteValues(string $value): ?string
@@ -201,11 +198,6 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 		return $value;
 	}
 
-	/**
-	 * @param int $uid
-	 * @param string $pathsegment
-	 * @return int
-	 */
 	protected function insert(int $uid, string $pathsegment): int
 	{
 		$connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable(static::PATHSEGMENT_TABLENAME);
@@ -223,10 +215,6 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 		return intval($connection->lastInsertId(static::PATHSEGMENT_TABLENAME));
 	}
 
-	/**
-	 * @param ?array $result
-	 * @return
-	 */
 	protected function refresh(?array $result)
 	{
 		if (!$result) {
@@ -295,7 +283,6 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	}
 
 	/**
-	 * @return \TYPO3\CMS\Core\Routing\Aspect\PersistenceDelegate
 	 * @deprecated since v1.2, will be removed in v2.0
 	 */
 	protected function getPersistenceDelegate(): PersistenceDelegate
