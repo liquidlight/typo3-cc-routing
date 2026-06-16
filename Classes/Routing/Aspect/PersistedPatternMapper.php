@@ -257,7 +257,10 @@ class PersistedPatternMapper extends \TYPO3\CMS\Core\Routing\Aspect\PersistedPat
 	 */
 	protected function findByRouteFieldValues(array $values): ?array
 	{
-		$queryBuilder = $this->createQueryBuilder()->resetQueryPart('from')->from(static::PATHSEGMENT_TABLENAME);
+		$queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)
+			->getQueryBuilderForTable(static::PATHSEGMENT_TABLENAME)
+			->from(static::PATHSEGMENT_TABLENAME)
+		;
 		$queryBuilder->getRestrictions()->removeByType(EndTimeRestriction::class);
 
 		$constraints = [];
