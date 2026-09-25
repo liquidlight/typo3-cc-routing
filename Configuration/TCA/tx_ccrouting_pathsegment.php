@@ -8,7 +8,6 @@ return [
 		'label_alt_force' => true,
 		'tstamp' => 'tstamp',
 		'crdate' => 'crdate',
-		'cruser_id' => 'cruser_id',
 		'delete' => 'deleted',
 		'enablecolumns' => [
 			'starttime' => 'starttime',
@@ -16,6 +15,9 @@ return [
 		],
 		'searchFields' => 'pathsegment,tablename',
 		'iconfile' => 'EXT:cc_routing/Resources/Public/Icons/tx_ccrouting_pathsegment.png',
+		'security' => [
+			'ignorePageTypeRestriction' => true,
+		],
 	],
 	'types' => [
 		'1' => ['showitem' => 'data_uid, pathsegment, tablename, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, starttime, endtime'],
@@ -25,9 +27,7 @@ return [
 			'exclude' => true,
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
 			'config' => [
-				'type' => 'input',
-				'renderType' => 'inputDateTime',
-				'eval' => 'datetime,int',
+				'type' => 'datetime',
 				'default' => 0,
 				'behaviour' => [
 					'allowLanguageSynchronization' => true,
@@ -38,9 +38,7 @@ return [
 			'exclude' => true,
 			'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
 			'config' => [
-				'type' => 'input',
-				'renderType' => 'inputDateTime',
-				'eval' => 'datetime,int',
+				'type' => 'datetime',
 				'default' => 0,
 				'behaviour' => [
 					'allowLanguageSynchronization' => true,
@@ -52,9 +50,9 @@ return [
 			'exclude' => false,
 			'label' => 'LLL:EXT:cc_routing/Resources/Private/Language/locallang_db.xlf:tx_ccrouting_pathsegment.data_uid',
 			'config' => [
-				'type' => 'input',
+				'type' => 'number',
 				'size' => 10,
-				'eval' => 'int,required',
+				'required' => true,
 			],
 		],
 		'pathsegment' => [
@@ -63,7 +61,8 @@ return [
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
-				'eval' => 'trim,required',
+				'eval' => 'trim',
+				'required' => true,
 			],
 		],
 		'tablename' => [
@@ -72,7 +71,8 @@ return [
 			'config' => [
 				'type' => 'input',
 				'size' => 30,
-				'eval' => 'trim,required',
+				'eval' => 'trim',
+				'required' => true,
 			],
 		],
 
