@@ -1,3 +1,12 @@
+# 2.0.2
+
+**25th September 2026**
+
+#### Chores
+
+- Update the TYPO3 extension author
+- Set up linting and run it on the codebase
+
 # 2.0.1
 
 **7th August 2024**
