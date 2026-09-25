@@ -1,3 +1,20 @@
+# 3.0.0
+
+**25th September 2026**
+
+#### Breaking
+
+- Drop support for TYPO3 v11
+
+#### Feature
+
+- Add support for TYPO3 v13
+
+#### Fix
+
+- Update database query usage in `PersistedPatternMapper` to the TYPO3 v12/v13-compatible API (`executeQuery()`/`fetchAssociative()`, `Connection::PARAM_*`, `lastInsertId()`)
+- Replace removed `ExtensionManagementUtility::allowTableOnStandardPages()`/`addLLrefForTCAdescr()` calls with the TCA `ctrl.security.ignorePageTypeRestriction` option
+
 # 2.0.2
 
 **25th September 2026**
